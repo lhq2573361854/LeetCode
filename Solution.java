@@ -32,5 +32,44 @@ public class Solution {
         int num = (n+1) * (temp[25] -1 ) + maxCount;
         return Math.max(num,len);
     }
+     /**
+     * 401. 二进制手表 第二种解法
+     * @param num
+     * @return
+     */
+    public static List<String> readBinaryWatch1(int num) {
+        ArrayList<String> list = new ArrayList<>();
+        int[] x = new int[10];
+        dfs(0,list,num,x);
+        return list;
+    }
+    private static void dfs(int i, List list,int num,int[] x){
+
+        if(Arrays.stream(x).sum() == num){
+            int temp = 0;
+            int count = 0;
+            for (int j = 3; j >= 0; j--) {
+                temp += Math.pow(2,count++) * x[j];
+            }
+            count = 0;
+            int temp2 = 0;
+            for (int j = 9; j >=4; j--) {
+                temp2 += Math.pow(2,count++) * x[j];
+            }
+            if(temp >=12 || temp2 >= 60)
+                return;
+            if(temp2 < 10)
+                list.add(temp+":0"+temp2);
+            else
+                list.add(temp+":"+temp2);
+
+        }else{
+            if(i >= 10) return ;
+            x[i] = 0;
+            dfs(i+1,list,num,x);
+            x[i] = 1;
+            dfs(i+1,list,num,x);
+        }
+    }
 
 }
