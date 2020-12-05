@@ -32,6 +32,30 @@ public class Solution {
         int num = (n+1) * (temp[25] -1 ) + maxCount;
         return Math.max(num,len);
     }
+
+    /**
+     * 401. 二进制手表
+     * @param num
+     * @return
+     */
+    public static List<String> readBinaryWatch(int num) {
+        ArrayList<String> list = new ArrayList<>();
+        String str = null;
+        for (Integer i = 0; i < 12; i++) {
+            for (Integer j = 0; j < 60; j++) {
+                Integer integer = Stream.of(Integer.toBinaryString(i)).flatMap(u -> Arrays.stream(u.split(""))).map(v -> Integer.valueOf(v)).reduce((a, b) -> a + b).get();
+                Integer integer1 = Stream.of(Integer.toBinaryString(j)).flatMap(u -> Arrays.stream(u.split(""))).map(v -> Integer.valueOf(v)).reduce((a, b) -> a + b).get();
+                if(integer + integer1 == num){
+                    if(j >= 10)
+                       str= new String(i+":"+j);
+                    else
+                        str = new String(i+":0"+j);
+                    list.add(str);
+                }
+            }
+        }
+        return list;
+    }
      /**
      * 401. 二进制手表 第二种解法
      * @param num
