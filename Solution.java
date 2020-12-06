@@ -96,4 +96,27 @@ public class Solution {
         }
     }
 
+    /**
+     * 118. 杨辉三角
+     * @param numRows
+     * @return
+     */
+    public static List<List<Integer>> generate(int numRows) {
+        ArrayList<List<Integer>> lists = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            arrayList.add(1);
+            lists.add(arrayList);
+        }
+
+        for (int i = 1; i < numRows; i++) {
+            for (int j = 1; j < lists.get(i-1).size(); j++) {
+                lists.get(i).add(lists.get(i-1).get(j-1) + lists.get(i-1).get(j));
+            }
+            lists.get(i).add(1);
+        }
+
+        return lists;
+    }
+
 }
